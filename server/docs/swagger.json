@@ -1,0 +1,30 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Swagger",
+    "version": "1",
+    "title": "Swagger"
+  },
+  "tags": [
+    {
+      "name": "Default",
+      "description": "Default route"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Default"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {}
+        }
+      }
+    }
+  }
+}
