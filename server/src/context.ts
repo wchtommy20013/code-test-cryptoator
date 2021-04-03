@@ -3,7 +3,6 @@ import { applyRoute } from "./application/decorators/Route";
 import { EventManager } from "./application/event/EventManager";
 import { AppConfig } from "./common/config/AppConfig";
 import { controllers } from "./controller";
-import { CacheManager } from './application/cache/CacheManager';
 
 
 const context = new ApplicationContext({
@@ -23,7 +22,6 @@ module.exports = {
         }
 
         context.init();
-        await CacheManager.instance.init();
         applyRoute(controllers, context);
         EventManager.emit("SERVER_STARTED");
     },
@@ -31,3 +29,4 @@ module.exports = {
         context.server.close();
     }
 }
+

@@ -1,71 +1,50 @@
-import NodeCache, { Callback } from "node-cache";
-import storage from "node-persist";
+import NodeCache from 'node-cache';
+import { AppConfig } from '@server/common/config/AppConfig';
 
-type Key = string | number;
+class Cache {
 
-export class CacheManager {
-    private readonly _cache: NodeCache;
-    private readonly _storage: typeof storage;
-
-    private constructor() {
-
-        this._cache = new NodeCache();
-
-        this._storage = storage;
-
+    cache: NodeCache;
+    constructor(ttlSeconds: number) {
+        this.cache = new NodeCache({ stdTTL: ttlSeconds, checkperiod: ttlSeconds * 0.2, useClones: false });
     }
 
-    private static _instance: CacheManager;
-
-    public static get instance() {
-        if (CacheManager._instance === undefined) {
-            CacheManager._instance = new CacheManager();
+    public async get<T>(key: string, storeFunction: () => Promise<T>): Promise<T> {
+        const value = this.cache.get(key) as T;
+        if (value) {
+            return Promise.resolve(value);
         }
-        return CacheManager._instance;
+
+        return this.update(key, storeFunction);
     }
 
-    public async init() {
-        await storage.init();
+    public async update<T>(key: string, storeFunction: () => Promise<T>): Promise<T> {
+        return storeFunction().then((result) => {
+            this.cache.set(key, result);
+            return result;
+        });
     }
 
-    get cache() {
-        return this._cache;
+    public del(key: string) {
+        this.cache.del(key);
     }
 
-    public static getCache() {
-        return this.instance.cache;
+    public delStartWith(prefix: string = '') {
+        if (!prefix) {
+            return;
+        }
+
+        const keys = this.cache.keys();
+        for (const key of keys) {
+            if (key.indexOf(prefix) === 0) {
+                this.del(key);
+            }
+        }
     }
 
-    /**
-     * set a cached key and change the stats
-     *
-     * @param key cache key
-     * @param value A element to cache. If the option `option.forceString` is `true` the module trys to translate
-     * it to a serialized JSON
-     * @param ttl The time to live in seconds.
-     * @param cb Callback function
-     */
-    public static set<T>(
-        key: Key,
-        value: T,
-        ttl: number | string = 0,
-    ): boolean {
-        return this.instance.cache.set(key, value, ttl);
+    public flush() {
+        this.cache.flushAll();
     }
-
-
-    /**
-     * get a cached key and change the stats
-     *
-     * @param key cache key or an array of keys
-     * @param cb Callback function
-     */
-    public static get<T>(
-        key: Key,
-        cb?: Callback<T>
-    ): T | undefined {
-        return this.instance.cache.get(key);
-    }
-
-
 }
+
+
+export const CacheManager = new Cache(AppConfig.throttleTimeLimitSecond);
