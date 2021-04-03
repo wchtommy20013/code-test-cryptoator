@@ -4,4 +4,5 @@ export interface IAppConfig {
         port: string;
         key: string;
     };
+    throttleTimeLimit: number;
 }

@@ -3,6 +3,7 @@ import { applyRoute } from "./application/decorators/Route";
 import { EventManager } from "./application/event/EventManager";
 import { AppConfig } from "./common/config/AppConfig";
 import { controllers } from "./controller";
+import { CacheManager } from './application/cache/CacheManager';
 
 
 const context = new ApplicationContext({
@@ -14,10 +15,7 @@ const context = new ApplicationContext({
 module.exports = {
     context,
     app: context.app,
-    services: () => {
-        // Empty
-    },
-    start: () => {
+    start: async () => {
         if (process.env.NODE_ENV === 'development') {
             const swaggerUi = require('swagger-ui-express');
             const swaggerDocument = require('../docs/swagger.json');
@@ -25,6 +23,7 @@ module.exports = {
         }
 
         context.init();
+        await CacheManager.instance.init();
         applyRoute(controllers, context);
         EventManager.emit("SERVER_STARTED");
     },

@@ -7,5 +7,10 @@ export class IndexController extends BaseController {
     @Get("/", { noAuth: true })
     public index() {
         return "Hello World";
+    }   
+    
+    @Get("/ticker", { noAuth: true })
+    public getTicker() {
+        return "Hello World";
     }
 }
