@@ -11,4 +11,6 @@ export interface EventByType {
         reason: {} | null | undefined, 
         promise: Promise<any>
     }
+
+    SHOULD_REFRESH: {},
 }

@@ -22,6 +22,12 @@ module.exports = {
         }
 
         context.init();
+
+        EventManager.emit("SHOULD_REFRESH");
+        setInterval(() => {
+            EventManager.emit("SHOULD_REFRESH");
+        }, AppConfig.throttleTimeLimitSecond * 1000 + 1000); // an extra second for buffering
+
         applyRoute(controllers, context);
         EventManager.emit("SERVER_STARTED");
     },

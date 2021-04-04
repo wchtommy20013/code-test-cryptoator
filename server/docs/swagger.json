@@ -39,6 +39,20 @@
           "200": {}
         }
       }
+    },
+    "/emit": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Default"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {}
+        }
+      }
     }
   }
 }

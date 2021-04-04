@@ -3,5 +3,5 @@
         "address": "127.0.0.1",
         "port": "4000"
     },
-    "throttleTimeLimitSecond": 5
+    "throttleTimeLimitSecond": 30
 }
