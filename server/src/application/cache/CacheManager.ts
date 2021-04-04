@@ -47,4 +47,4 @@ class Cache {
 }
 
 
-export const CacheManager = new Cache(AppConfig.throttleTimeLimitSecond);
+export const CacheManager = new Cache(AppConfig.standardCacheTTL);

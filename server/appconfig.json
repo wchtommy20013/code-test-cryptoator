@@ -3,5 +3,6 @@
         "address": "127.0.0.1",
         "port": "4000"
     },
-    "throttleTimeLimitSecond": 30
+    "throttleTimeLimitSecond": 30,
+    "standardCacheTTL": 60
 }

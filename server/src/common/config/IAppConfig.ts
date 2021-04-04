@@ -5,4 +5,5 @@ export interface IAppConfig {
         key: string;
     };
     throttleTimeLimitSecond: number;
+    standardCacheTTL: number;
 }

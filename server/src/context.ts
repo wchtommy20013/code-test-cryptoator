@@ -11,6 +11,8 @@ const context = new ApplicationContext({
     key: AppConfig.environment.key,
 });
 
+let timer: NodeJS.Timeout;
+
 module.exports = {
     context,
     app: context.app,
@@ -24,7 +26,8 @@ module.exports = {
         context.init();
 
         EventManager.emit("SHOULD_REFRESH");
-        setInterval(() => {
+        
+        timer = setInterval(() => {
             EventManager.emit("SHOULD_REFRESH");
         }, AppConfig.throttleTimeLimitSecond * 1000 + 1000); // an extra second for buffering
 
@@ -32,6 +35,7 @@ module.exports = {
         EventManager.emit("SERVER_STARTED");
     },
     end: () => {
+        clearInterval(timer);
         context.server.close();
     }
 }

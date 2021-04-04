@@ -45,4 +45,4 @@ class Service extends BaseService implements ICryptonatorConnectionService {
     }
 }
 
-export const CryptonatorConnectionService: Service = new Service();
+export const CryptonatorConnectionService: ICryptonatorConnectionService = new Service();

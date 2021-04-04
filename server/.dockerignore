@@ -1,4 +1,6 @@
 dist
+docs
 node_modules
 coverage
 .vscode
+.node-persist
