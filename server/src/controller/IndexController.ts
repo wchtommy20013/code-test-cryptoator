@@ -14,7 +14,7 @@ export class IndexController extends BaseController {
     
     @Get("/ticker", { noAuth: true })
     public getTicker() {
-        return CurrencyService.getTickerAsync();
+        return CurrencyService.getAllTickersAsync();
     }    
     
     @Get("/emit", { noAuth: true })

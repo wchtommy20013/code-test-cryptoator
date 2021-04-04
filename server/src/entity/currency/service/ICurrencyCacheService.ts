@@ -1,5 +1,4 @@
 import { GetCurrencyPriceResponse } from "@server/entity/currency/model/GetCurrencyPriceResponse";
-import { CurrencyType } from '@server/entity/currency/model/CurrencyType';
 
 /**
  * Simplified cache service
@@ -8,8 +7,8 @@ import { CurrencyType } from '@server/entity/currency/model/CurrencyType';
  */
 export interface ICurrencyCacheService {
     /**
-     * Get price information from cache
+     * Get all price information from cache
      * @returns GetCurrencyPriceResponse
      */
-    getTickerAsync(type: CurrencyType): Promise<GetCurrencyPriceResponse>;
+    getAllTickersAsync(): Promise<GetCurrencyPriceResponse[]>;
 }
