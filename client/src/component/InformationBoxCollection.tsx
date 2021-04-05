@@ -8,8 +8,8 @@ import { CurrencyType } from "../model/CurrencyType";
 
 export default class InformationBoxCollection extends Component<{}, { data: GetCurrencyPriceResponse[] }> {
 
-    public constructor() {
-        super({});
+    public constructor(props: {}) {
+        super(props);
         this.state = { data: [] };
     }
 
@@ -30,17 +30,19 @@ export default class InformationBoxCollection extends Component<{}, { data: GetC
         for (const type of Object.keys(CurrencyType)) {
             const match = this.state.data.filter(x => x.ticker?.base === (CurrencyType as any)[type]);
             if (match.length > 0) {
-                children.push((<InformationBox name={type} data={match[0]}></InformationBox>))
+                children.push((<InformationBox key={type} name={type} data={match[0]}></InformationBox>))
             } else {
-                children.push((<InformationBox name={type} data={null}></InformationBox>))
+                children.push((<InformationBox key={type} name={type} data={null}></InformationBox>))
             }
         }
 
         return (
             <div className="container">
-                <p className="header">
-                    Cryptocurrency Realtime Price
-                </p>
+                <div className="header">
+                    <p>
+                        Cryptocurrency Realtime Price
+                    </p>
+                </div>
                 <div className="parent">
                     {children}
                 </div>

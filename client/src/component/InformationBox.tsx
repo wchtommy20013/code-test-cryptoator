@@ -4,8 +4,8 @@ import { GetCurrencyPriceResponse } from '@server/entity/currency/model/GetCurre
 
 export default class InformationBox extends Component<{ name: string, data: GetCurrencyPriceResponse | null }, {}> {
 
-    public constructor() {
-        super({ name: "", data: {} as GetCurrencyPriceResponse });
+    public constructor(props: { name: string, data: GetCurrencyPriceResponse | null }) {
+        super(props);
         this.state = {};
     }
 
@@ -35,15 +35,15 @@ export default class InformationBox extends Component<{ name: string, data: GetC
                     {price}
                 </div>
 
-                <div className="volume">
-                    <div className="currency-volume">
-                        <div className="currency-volume-label">
+                <div className="others">
+                    <div className="volume">
+                        <div className="label">
                             volume:
                         </div>
                         {volume}
                     </div>
-                    <div className="currency-change">
-                        <div className="currency-change-label">
+                    <div className="change">
+                        <div className="label">
                             change:
                         </div>
                         <span style={{ color: changeColor }}>
