@@ -1,6 +1,6 @@
 import { Component } from "react";
 import './InformationBox.scss';
-import { GetCurrencyPriceResponse } from '@server/entity/currency/model/GetCurrencyPriceResponse';
+import { GetCurrencyPriceResponse } from '../model/GetCurrencyPriceResponse';
 
 export default class InformationBox extends Component<{ name: string, data: GetCurrencyPriceResponse | null }, {}> {
 

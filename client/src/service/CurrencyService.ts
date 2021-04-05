@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { BaseService } from '../service/BaseService';
-import { GetCurrencyPriceResponse } from '@server/entity/currency/model/GetCurrencyPriceResponse';
+import { GetCurrencyPriceResponse } from '../model/GetCurrencyPriceResponse';
 import { CurrencyType } from '../model/CurrencyType';
 
 
@@ -12,8 +12,8 @@ class Service extends BaseService {
             const result: GetCurrencyPriceResponse[] = await response.json();
             return result;
         } else {
+            console.error(await response.text())
             return [];
-            // throw new HttpResponseError(response);
         }
     }
 

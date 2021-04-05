@@ -33,7 +33,7 @@
     "build": "npm run clean && npm run build-src && npm run fix-ts",
     "build-src": "tsc -p tsconfig.release.json",
     "watch": "tsc -w -p tsconfig.release.json",
-    "run": "nodemon --inspect=5858 ./src/main.ts",
+    "start": "nodemon --inspect=5858 ./src/main.ts",
     "debug": "ts-node --inspect=9001 -r tsconfig-paths/register src/main.ts",
     "lint": "tslint -t stylish --project \"tsconfig.json\" --force",
     "pretest": "npm run lint",

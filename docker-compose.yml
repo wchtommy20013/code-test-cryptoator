@@ -1,13 +1,13 @@
 version: "3"
 services:
-#   frontend:
-#     build:
-#       context: ./client
-#       dockerfile: Dockerfile
-#     environment:
-#       NODE_ENV: production
-#     ports:
-#       - 8080:8080
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8080:8080
   backend:
     build:
       context: ./server

@@ -1,12 +1,14 @@
 import { CurrencyService } from "../service/CurrencyService";
 import { Component } from "react";
 import InformationBox from './InformationBox';
-import { GetCurrencyPriceResponse } from '@server/entity/currency/model/GetCurrencyPriceResponse';
-
-import './InformationBox.scss';
+import { GetCurrencyPriceResponse } from '../model/GetCurrencyPriceResponse';
 import { CurrencyType } from "../model/CurrencyType";
+import './InformationBox.scss';
 
 export default class InformationBoxCollection extends Component<{}, { data: GetCurrencyPriceResponse[] }> {
+    public readonly refreshRate: number = 30000;
+
+    public timer?: NodeJS.Timeout;
 
     public constructor(props: {}) {
         super(props);
@@ -14,13 +16,16 @@ export default class InformationBoxCollection extends Component<{}, { data: GetC
     }
 
     public async componentDidMount() {
-        try {
-            const res = await CurrencyService.getAllTickerAsync();
-            this.setState({
-                data: res,
-            });
-        } catch (e) {
+        const res = await CurrencyService.getAllTickerAsync();
+        this.setState({
+            data: res,
+        });
+        this.timer = setInterval(() => {}, this.refreshRate);
+    }
 
+    public async componentWillUnmount() {
+        if(this.timer) {
+            clearInterval(this.timer);
         }
     }
 
