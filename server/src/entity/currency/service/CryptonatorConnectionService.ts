@@ -41,7 +41,7 @@ class Service extends BaseService implements ICryptonatorConnectionService {
         }
         
         const result = await Promise.all(promises);
-        return result;
+        return result.filter(x => x.success);
     }
 }
 
