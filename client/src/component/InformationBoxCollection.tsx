@@ -16,17 +16,21 @@ export default class InformationBoxCollection extends Component<{}, { data: GetC
     }
 
     public async componentDidMount() {
-        const res = await CurrencyService.getAllTickerAsync();
-        this.setState({
-            data: res,
-        });
-        this.timer = setInterval(() => {}, this.refreshRate);
+        await this.loadData();
+        this.timer = setInterval(() => { this.loadData() }, this.refreshRate);
     }
 
     public async componentWillUnmount() {
         if(this.timer) {
             clearInterval(this.timer);
         }
+    }
+
+    private async loadData() {
+        const res = await CurrencyService.getAllTickerAsync();
+        this.setState({
+            data: res,
+        });
     }
 
     render() {
